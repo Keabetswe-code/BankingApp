@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deploy Java Web App to Azure App Service</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6;">
+
+  <h1>🚀 Deploy Java Web App to Azure App Service</h1>
+
+  <h2>✅ Prerequisites</h2>
+  <ul>
+    <li>Java JDK installed (Java 17 or Java 11)</li>
+    <li>Maven or Gradle installed</li>
+    <li>Azure Account (<a href="https://portal.azure.com">portal.azure.com</a>)</li>
+    <li>(Optional) Azure CLI installed</li>
+    <li>Java App Code (e.g., Spring Boot)</li>
+  </ul>
+
+  <h2>🔹 Step 1: Create Java Web Application</h2>
+  <pre><code>spring init --dependencies=web myapp
+cd myapp
+mvn clean package</code></pre>
+  <p>This creates a <code>.jar</code> file in the <code>target/</code> folder.</p>
+
+  <h2>🔹 Step 2: Log in to Azure Portal</h2>
+  <p>Go to <a href="https://portal.azure.com">https://portal.azure.com</a></p>
+
+  <h2>🔹 Step 3: Create a Web App</h2>
+  <ol>
+    <li>Go to <strong>App Services</strong> &gt; <strong>+ Create</strong></li>
+    <li>Choose a <strong>Resource Group</strong> and unique app name (e.g., <code>myjavademo</code>)</li>
+    <li>Select <strong>Publish</strong>: Code</li>
+    <li>Select <strong>Runtime stack</strong>: Java 17 (LTS)</li>
+    <li>Select <strong>OS</strong>: Linux</li>
+    <li>Select <strong>Region</strong> and App Service Plan</li>
+    <li>Click <strong>Review + Create</strong> &gt; <strong>Create</strong></li>
+  </ol>
+
+  <h2>🔹 Step 4: Deploy the Java App</h2>
+
+  <h3>Option A: Upload ZIP in Portal</h3>
+  <ol>
+    <li>Compress the <code>.jar</code> file into a <code>.zip</code></li>
+    <li>Go to your App Service &gt; <strong>Deployment Center</strong></li>
+    <li>Use the <strong>ZIP Deploy</strong> option</li>
+  </ol>
+
+  <h3>Option B: Use Azure CLI</h3>
+  <pre><code>az webapp deploy \
+  --resource-group myResourceGroup \
+  --name myjavademo \
+  --src-path target/myapp.jar \
+  --type jar</code></pre>
+
+  <h3>Option C: Use GitHub Actions</h3>
+  <ol>
+    <li>Go to <strong>Deployment Center</strong></li>
+    <li>Choose GitHub as the source</li>
+    <li>Select your repository and branch</li>
+    <li>Azure will auto-generate a deployment workflow</li>
+  </ol>
+
+  <h2>🔹 Step 5: Configure App Settings</h2>
+  <ol>
+    <li>Go to App Service &gt; <strong>Configuration</strong></li>
+    <li>Add environment variables or JVM options as needed</li>
+    <li>For example, <code>SPRING_PROFILES_ACTIVE</code> or <code>JAVA_OPTS</code></li>
+  </ol>
+
+  <h2>🔹 Step 6: View Your Web App</h2>
+  <p>Open in browser:</p>
+  <pre><code>https://&lt;your-app-name&gt;.azurewebsites.net</code></pre>
+
+  <p>To view logs:</p>
+  <pre><code>az webapp log tail --name myjavademo --resource-group myResourceGroup</code></pre>
+
+  <h2>✅ Java Frameworks Supported</h2>
+  <ul>
+    <li>Spring Boot</li>
+    <li>Jakarta EE</li>
+    <li>Micronaut</li>
+    <li>Quarkus</li>
+  </ul>
+
+  <p><strong>Need help customizing for your own project?</strong> Let me know!</p>
+
+</body>
+</html>
